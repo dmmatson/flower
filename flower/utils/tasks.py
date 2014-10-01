@@ -1,14 +1,14 @@
 from celery.events.state import Task
 
 
-def iter_tasks(events, limit=None, type=None, worker=None, state=None):
+def iter_tasks(events, limit=None, type=None, worker=None, states=None):
     i = 0
     for uuid, task in events.state.tasks_by_timestamp():
         if type and task.name != type:
             continue
         if worker and task.worker and task.worker.hostname != worker:
             continue
-        if state and task.state != state:
+        if states and task.state not in states:
             continue
         yield uuid, task
         i += 1

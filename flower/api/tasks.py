@@ -307,7 +307,7 @@ List tasks
         result = []
         for task_id, task in tasks.iter_tasks(
                 app.events, limit=limit, type=type,
-                worker=worker, state=state):
+                worker=worker, states=state):
             task = task.as_dict()
             task.pop('worker')
             result.append((task_id, task))

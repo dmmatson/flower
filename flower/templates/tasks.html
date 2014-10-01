@@ -64,8 +64,7 @@
               <label class="control-label" for="select-state">State:</label>
 
               <div class="controls">
-                <select name="state" id="select-state">
-                  <option>All</option>
+                <select multiple="multiple" name="states" id="select-states" size="7">
                   {% for name in all_states %}
                   <option {% if name==state %} selected {% end %}>{{ name }}</option>
                   {% end %}

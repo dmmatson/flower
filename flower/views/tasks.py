@@ -31,14 +31,13 @@ class TasksView(BaseHandler):
         limit = self.get_argument('limit', default=None, type=int)
         worker = self.get_argument('worker', None)
         type = self.get_argument('type', None)
-        state = self.get_argument('state', None)
+        states = self.get_arguments('states', None)
 
         worker = worker if worker != 'All' else None
         type = type if type != 'All' else None
-        state = state if state != 'All' else None
 
         tasks = iter_tasks(app.events, limit=limit, type=type,
-                           worker=worker, state=state)
+                           worker=worker, states=states)
         tasks = imap(self.format_task, tasks)
         workers = app.events.state.workers
         seen_task_types = app.events.state.task_types()
@@ -51,7 +50,7 @@ class TasksView(BaseHandler):
                     limit=limit,
                     worker=worker,
                     type=type,
-                    state=state,
+                    state=states,
                     time=time)
 
     def format_task(self, args):
